@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ $# -ne 1 ]; then
+  echo "wslpath [path]"
+  exit 1
+fi
+windir='C:/Users/slme/AppData/Local/lxss'
+BoWpath=$(readlink -f $1)
+headstr='/'
+if [[ ${1:0:1} =~ $headstr ]]; then
+  BoWpath=$1
+fi
+substr='/mnt/c'
+if [[ ${BoWpath:0:6} =~ $substr ]]; then
+  windir='C:'
+  BoWpath=$(echo ${BoWpath:6})
+fi
+echo $windir$BoWpath
